@@ -36,6 +36,11 @@ body {
 
 .logo {
   margin: 3rem 0 2rem;
+  transition: scale 0.4s ease;
+
+  &:hover {
+    scale: 1.1;
+  }
 }
 
 main section {
@@ -93,6 +98,7 @@ select {
   color: #1f2523;
   background-color: transparent;
   outline: none;
+  transition: border 0.5s linear;
 }
 
 select {
@@ -101,6 +107,7 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.7rem top 50%;
   background-size: 1.25rem auto;
+  cursor: pointer;
 }
 
 input::placeholder,
@@ -110,6 +117,11 @@ select:invalid {
 
 input:focus,
 select:focus {
+  border: 1.5px solid #1f8459;
+}
+
+input:hover,
+select:hover {
   border: 1.5px solid #1f8459;
 }
 
@@ -140,7 +152,7 @@ form button {
   padding: 1rem 1.25rem;
   cursor: pointer;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.4s ease;
 }
 
 button:hover {
