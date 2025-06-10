@@ -31,12 +31,14 @@
 
       <fieldset>
         <legend>Nome da despesa</legend>
+        <label for="expense" class="sr-only">Nome da despesa</label>
         <input type="text" id="expense" name="expense" required/>
       </fieldset>
 
       <div class="inputs-row">
         <fieldset>
           <legend>Categoria</legend>
+          <label for="category" class="sr-only">Categoria</label>
           <select id="category" name="category" required>
             <option value="" disabled selected hidden>Selecione</option>
             <option value="food">Alimentação</option>
@@ -49,6 +51,7 @@
 
         <fieldset>
           <legend>Valor da despesa</legend>
+          <label for="amount" class="sr-only">Valor da despesa</label>
           <input
             type="number"
             name="amount"
