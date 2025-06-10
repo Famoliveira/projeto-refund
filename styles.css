@@ -18,20 +18,32 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e4ece9;
+  background: #333;
 }
 
 body {
   width: 100%;
   height: 100vh;
 
-  background-color: #e4ece9;
+  background-color: #121212;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  color: #1f2523;
+  color: #e0e0e0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .logo {
@@ -46,7 +58,7 @@ main section {
 }
 
 form {
-  background-color: #f9fbfa;
+  background-color: #1e1e1e;
   border-radius: 1rem;
   padding: 2.5rem;
   max-width: 462px;
@@ -61,7 +73,7 @@ form h1 {
 
 form p {
   font-size: 0.87rem;
-  color: #4d5c57;
+  color: #bbb;
   margin: 0.75rem 0 2.5rem;
 }
 
@@ -73,13 +85,16 @@ fieldset {
 fieldset legend {
   text-transform: uppercase;
   font-size: 0.62rem;
-  color: #4d5c57;
+  color: #bbb;
   margin-bottom: 0.5rem;
+  transition: color 0.25s ease-in-out, font-weight 0.25s ease-in-out, letter-spacing 0.25s ease-in-out;
+  letter-spacing: 0.025em;
 }
 
 fieldset:focus-within legend {
   color: #1f8459;
   font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 input,
@@ -87,12 +102,13 @@ select {
   flex: 1;
   height: 3rem;
   border-radius: 0.5rem;
-  border: 1px solid #cdd5d2;
+  border: 1px solid #333;
   padding: 0 1rem;
   font-size: 0.87rem;
-  color: #1f2523;
+  color: #e0e0e0;
   background-color: transparent;
   outline: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Adicionado box-shadow à transição */
 }
 
 select {
@@ -101,16 +117,18 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.7rem top 50%;
   background-size: 1.25rem auto;
+  cursor: pointer; /* only select shows pointer */
 }
 
 input::placeholder,
 select:invalid {
-  color: #4d5c57;
+  color: #777;
 }
 
 input:focus,
 select:focus {
   border: 1.5px solid #1f8459;
+  box-shadow: 0 0 5px rgba(31, 132, 89, 0.3); /* Sombra no focus para combinar com a borda */
 }
 
 .inputs-row {
@@ -135,16 +153,19 @@ form button {
   border: none;
   font-size: 0.87rem;
   color: #ffffff;
-  background-color: #1f8459;
+  background-color: #1f8459; /* verde escuro padrão */
   font-weight: 700;
   padding: 1rem 1.25rem;
   cursor: pointer;
 
-  transition: background-color 0.2s;
+  letter-spacing: 0.025em;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, letter-spacing 0.25s ease-in-out;
 }
 
 button:hover {
-  background-color: #2cb178;
+  letter-spacing: 0.05em;
+  background-color: #166b46; /* verde mais escuro no hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
 form button:last-child {
@@ -152,7 +173,7 @@ form button:last-child {
 }
 
 aside {
-  background-color: #f9fbfa;
+  background-color: #1e1e1e;
   border-radius: 1rem;
   padding: 2.5rem;
   max-width: 462px;
@@ -166,18 +187,19 @@ aside header {
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e4ece9;
+  border-bottom-color: #333;
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
 }
+
 aside header p {
-  color: #4d5c57;
+  color: #ccc;
   font-weight: 400;
   font-size: 1rem;
 }
 
 aside header p span {
-  color: #4d5c57;
+  color: #bbb;
   font-weight: 400;
   font-size: 0.87rem;
 }
@@ -190,11 +212,11 @@ aside header p i {
 
 aside header h2 {
   font-size: 1rem;
-  color: #1f2523;
+  color: #e0e0e0;
 }
 
 aside header small {
-  color: #4d5c57;
+  color: #bbb;
   font-weight: 400;
   font-size: 0.75rem;
   margin-right: 0.25rem;
@@ -210,6 +232,20 @@ aside ul {
   min-height: 310px;
 
   overflow-y: scroll;
+}
+
+/* Scroll fino e moderno em dark theme para lista de solicitações */
+aside ul::-webkit-scrollbar {
+  width: 0.15rem;
+}
+
+aside ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+aside ul::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 0.125rem;
 }
 
 .expense {
@@ -232,24 +268,19 @@ aside ul {
 }
 
 .expense-info strong {
-  font-size: 0.87rem;
-  color: #1f2523;
+  color: #e0e0e0;
 }
 
 .expense-info span {
-  font-size: 0.75rem;
-  color: #4d5c57;
+  color: #bbb;
 }
 
 .expense-amount {
-  font-size: 0.87rem;
-  color: #1f2523;
-  font-weight: 600;
+  color: #e0e0e0;
 }
 
 .expense-amount small {
-  font-size: 0.75rem;
-  color: #4d5c57;
+  color: #bbb;
   font-weight: 400;
   margin-right: 0.25rem;
 }
@@ -259,11 +290,22 @@ aside ul {
   margin-left: 0.5rem;
 
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease-in-out; /* Removido transform da transição */
 }
 
 .remove-icon:hover {
   opacity: 0.7;
+  /* Removido transform: scale(1.15) */
+}
+
+/* Remove default number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 @media (min-width: 1100px) {
@@ -280,6 +322,11 @@ aside ul {
   main,
   aside {
     min-width: 100%;
+  }
+
+  .logo {
+    margin: 2rem auto 1.5rem;
+    display: block;
   }
 
   main section {
@@ -301,12 +348,18 @@ aside ul {
 }
 
 @media (max-width: 620px) {
+  .logo {
+    margin: 1.5rem auto 1rem;
+    max-width: 80%;
+    height: auto;
+  }
+
   .inputs-row {
     flex-direction: column;
   }
 
   .inputs-row fieldset:last-child input {
-    max-width: auto;
+    max-width: 100%;
     min-width: 100%;
   }
 
