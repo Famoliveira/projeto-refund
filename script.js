@@ -91,6 +91,7 @@ function expenseAdd(newExpense) {
         const removeIcon = document.createElement("img");
         removeIcon.classList.add("remove-icon")
         removeIcon.setAttribute("src", "./img/remove.svg")
+        removeIcon.setAttribute("alt", "Remover despesa") // acessibilidade
 
         // adiciona as informações dentro da div expense-info
         expenseInfo.append(expenseName, expenseCategory)

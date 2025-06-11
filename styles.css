@@ -6,7 +6,8 @@
 
 :root {
   font-family: "Open Sans", sans-serif;
-  font-size: 16px;
+  /* fonte responsiva entre 14px e 16px */
+  font-size: clamp(14px, 1.6vw, 16px);
 }
 
 ::-webkit-scrollbar {
@@ -65,7 +66,9 @@ form {
 
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  /* height: 50vh; */
+  min-height: 50vh; /* Alterado para min-height */
+  height: auto; /* Adicionado para permitir crescimento */
 }
 
 form h1 {
@@ -177,21 +180,27 @@ aside {
   background-color: #1e1e1e;
   border-radius: 1rem;
   padding: 2.5rem;
-  max-width: 462px;
+  /* max-width: 462px; */ /* Mantido, mas min-width é mais relevante para layout base */
+  min-width: 600px; /* Para garantir largura mínima no desktop */
+  /* height: 50vh; */
+  min-height: 50vh; /* Alterado para min-height */
+  height: auto; /* Adicionado para permitir crescimento */
 
-  min-width: 600px;
-  height: 50vh;
+  display: flex; /* Adicionado */
+  flex-direction: column; /* Adicionado */
 }
 
 aside header {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Adicionado para melhor alinhamento vertical */
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #333;
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
+  flex-shrink: 0; /* Para não encolher o header */
 }
 
 aside header p {
@@ -231,15 +240,17 @@ aside ul {
   flex-direction: column;
   gap: 1rem;
 
-  max-height: 310px;
-  min-height: 310px;
+  /* max-height: 310px; */ /* Removido/Alterado */
+  /* min-height: 310px; */ /* Removido */
+  flex-grow: 1; /* Adicionado para ocupar espaço vertical */
+  overflow-y: auto; /* Mantido */
 
-  overflow-y: scroll;
+  /* min-height: 0; */ /* Garante que flex-grow funcione corretamente em alguns cenários */
 }
 
 /* Scroll fino e moderno em dark theme para lista de solicitações */
 aside ul::-webkit-scrollbar {
-  width: 0.15rem;
+  width: 0.25rem; /* Ajustado para consistência ou preferência */
 }
 
 aside ul::-webkit-scrollbar-track {
@@ -254,7 +265,9 @@ aside ul::-webkit-scrollbar-thumb {
 .expense {
   display: flex;
   align-items: center;
-  height: 38px;
+  /* altura automática e padding para melhor responsividade */
+  height: auto;
+  padding: 0.5rem 0;
 }
 
 .expense img:first-child {
@@ -290,11 +303,13 @@ aside ul::-webkit-scrollbar-thumb {
 }
 
 .remove-icon {
-  height: 1rem;
+  height: 1.25rem; /* aumentado para desktop */
+  width: 1.25rem;
   margin-left: 0.5rem;
-
+  /* aumentar area clicavel */
+  padding: 0.25rem;
   cursor: pointer;
-  transition: opacity 0.2s ease-in-out; /* Removido transform da transição */
+  transition: opacity 0.2s ease-in-out;
 }
 
 .remove-icon:hover {
@@ -309,68 +324,217 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-@media (min-width: 1100px) {
-  form {
-    max-height: none;
-    height: 50vh;
-  }
-}
+/* === RESPONSIVIDADE === */
 
+/* Telas Médias (Tablets e Celulares em paisagem/retrato grande) */
 @media (max-width: 1100px) {
   :root {
-    font-size: 14px;
-  }
-
-  main {
-    width: 100%;
-  }
-  form,
-  aside {
-    width: 100%;
-    max-width: none;
-    min-width: unset;
-    height: auto;
+    font-size: 15px; /* Ajuste leve */
   }
 
   .logo {
-    margin: 2rem auto 1.5rem;
+    margin: 2.5rem auto 2rem; /* Ajuste de margem e centralização */
     display: block;
   }
 
   main section {
     flex-direction: column;
     width: 100%;
-
     padding: 1.5rem;
+    gap: 2rem; /* Aumentar o espaço entre form e aside quando empilhados */
   }
 
-  /* main section form inherits full width */
-
-  main section aside ul {
+  form,
+  aside {
     width: 100%;
+    max-width: none;
+    min-width: unset;
     height: auto;
-    overflow: auto;
+    min-height: unset; /* Remove min-height de 50vh */
+    padding: 2rem;
+  }
+
+  aside ul {
+    max-height: 50vh; /* Limita a altura da lista, permitindo scroll */
+    /* flex-grow: 1 e overflow: auto já estão definidos na base */
   }
 }
 
-@media (max-width: 620px) {
+/* Telas Pequenas (Celulares) */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+
   .logo {
-    margin: 1.5rem auto 1rem;
-    max-width: 80%;
-    height: auto;
+    margin: 2rem auto 1.5rem;
+    max-width: 70%;
+  }
+
+  main section {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  form,
+  aside {
+    padding: 1.5rem;
+  }
+
+  form h1 {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+  }
+
+  form p {
+    margin: 0.5rem 0 2rem;
   }
 
   .inputs-row {
     flex-direction: column;
+    /* gap: 1rem; // já é 1rem na base */
+  }
+
+  .inputs-row fieldset {
+    width: 100%;
   }
 
   .inputs-row fieldset:last-child input {
     max-width: 100%;
-    min-width: 100%;
+    min-width: auto; /* Garante que não haja min-width herdado */
   }
 
   aside header {
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem; /* Espaço entre os elementos do header */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  aside header h2 {
+    font-size: clamp(1rem, 6vw, 1.2rem);
+  }
+
+  aside ul {
+    max-height: 45vh; /* Ajusta a altura máxima da lista */
+  }
+
+  .expense-info span {
+    font-size: 0.85rem;
+  }
+
+  .expense-amount {
+    font-size: 1rem;
+  }
+
+  .expense-amount small {
+    font-size: 0.75rem;
+  }
+
+  .expense-info strong {
+    font-size: 1rem;
+  }
+
+  /* botões ocupam 100% da largura no mobile */
+  form button {
+    width: 100%;
+  }
+
+  fieldset legend {
+    font-size: clamp(0.6rem, 2vw, 0.7rem);
+  }
+
+  /* ícone remover menor no mobile */
+  .remove-icon {
+    height: 1rem;
+    width: 1rem;
+  }
+}
+
+/* Ajustes finos para telas muito pequenas */
+@media (max-width: 480px) {
+  .logo {
+    max-width: 60%;
+    margin: 1.5rem auto 1rem;
+  }
+
+  form, aside {
+    padding: 1rem;
+  }
+
+  form h1 {
+    font-size: clamp(1rem, 5vw, 1.2rem);
+  }
+
+  form p {
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  input,
+  select,
+  form button {
+    font-size: 0.85rem; /* Ajuste na fonte dos controles */
+    height: 2.8rem; /* Altura consistente */
+  }
+  
+  select {
+    background-size: 1.1rem auto; /* Ajustar tamanho do ícone do select */
+    background-position: right 0.6rem top 50%;
+  }
+
+  form button {
+    padding: 0.8rem 1rem;
+  }
+
+  aside header p {
+    font-size: 0.9rem;
+  }
+   aside header p span {
+    font-size: 0.8rem;
+  }
+  aside header h2 {
+    font-size: clamp(0.9rem, 7vw, 1.1rem);
+  }
+
+  .expense-amount {
+    font-size: 0.9rem;
+  }
+
+  .expense-amount small {
+    font-size: 0.7rem;
+  }
+
+  .expense-info strong {
+    font-size: 0.95rem;
+  }
+
+  aside ul {
+    max-height: 40vh;
+    gap: 0.75rem;
+  }
+
+  /* botões full-width e padding reduzido */
+  form button {
+    width: 100%;
+    padding: 0.6rem 0;
+  }
+
+  fieldset legend {
+    font-size: clamp(0.5rem, 2.5vw, 0.65rem);
+  }
+
+  .inputs-row {
+    gap: 0.5rem;
+  }
+
+  input,
+  select {
+    padding: 0 0.75rem;
+  }
+
+  /* ícone remover menor no mobile pequeno */
+  .remove-icon {
+    height: 0.875rem;
+    width: 0.875rem;
   }
 }
