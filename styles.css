@@ -65,6 +65,7 @@ form {
 
   display: flex;
   flex-direction: column;
+  height: 50vh;
 }
 
 form h1 {
@@ -179,6 +180,7 @@ aside {
   max-width: 462px;
 
   min-width: 600px;
+  height: 50vh;
 }
 
 aside header {
@@ -310,7 +312,8 @@ input[type="number"] {
 
 @media (min-width: 1100px) {
   form {
-    max-height: 428px;
+    max-height: none;
+    height: 50vh;
   }
 }
 
@@ -319,9 +322,15 @@ input[type="number"] {
     font-size: 14px;
   }
 
-  main,
+  main {
+    width: 100%;
+  }
+  form,
   aside {
-    min-width: 100%;
+    width: 100%;
+    max-width: none;
+    min-width: unset;
+    height: auto;
   }
 
   .logo {
@@ -336,9 +345,7 @@ input[type="number"] {
     padding: 1.5rem;
   }
 
-  main section form {
-    min-width: 100%;
-  }
+  /* main section form inherits full width */
 
   main section aside ul {
     width: 100%;
