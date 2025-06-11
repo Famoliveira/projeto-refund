@@ -4,6 +4,9 @@ const amount = document.getElementById("amount")
 const expense = document.getElementById("expense")
 const category = document.getElementById("category")
 
+// seleciona os elementos da lista de despesas
+const expenseList = document.querySelector("ul")
+
 
 // adiciona um evento de input ao campo amount
 amount.oninput = () => {
@@ -42,5 +45,30 @@ form.onsubmit = (event) => {
         created_at: new Date(),
     }
     
-    console.log(newExpense)
+    // chama a função para adicionar o item na lista
+    expenseAdd(newExpense);
 }
+
+// adiciona a nova despesa
+function expenseAdd(newExpense) {
+    try {
+        // cria o elemento (li class="expense") pra adicionar na lista (ul)
+        const expenseItem = document.createElement("li");
+        expenseItem.classList.add("expense")
+
+        // cria o icone da categoria (img)
+        const expenseIcon = document.createElement("img");
+        expenseIcon.setAttribute("src", `./img/${newExpense.category_id}.svg`)
+        expenseIcon.setAttribute("alt", `Icone da categoria ${newExpense.category_name}`)
+        
+        // adiciona os elementos ao item da lista (li)
+        expenseItem.append(expenseIcon)
+        
+        // adiciona o item da lista (li) na lista de despesas (ul)
+        expenseList.append(expenseItem)
+        
+    } catch (error) {
+        console.log("Erro ao adicionar despesa:", error);
+    }
+}
+
