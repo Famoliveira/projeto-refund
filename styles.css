@@ -218,7 +218,8 @@ aside header h2 {
 }
 
 aside header small {
-  color: #bbb;
+  color: #1f8358;
+  opacity: 0.9;
   font-weight: 400;
   font-size: 0.75rem;
   margin-right: 0.25rem;
@@ -282,7 +283,8 @@ aside ul::-webkit-scrollbar-thumb {
 }
 
 .expense-amount small {
-  color: #bbb;
+  color: #1f8358;
+  opacity: 0.9;
   font-weight: 400;
   margin-right: 0.25rem;
 }
