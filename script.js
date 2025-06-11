@@ -6,6 +6,7 @@ const category = document.getElementById("category")
 
 // seleciona os elementos da lista de despesas
 const expenseList = document.querySelector("ul")
+const expensesTotal = document.querySelector("aside header h2")
 const expensesQuantity = document.querySelector("aside header p span")
 
 
@@ -117,6 +118,41 @@ function updateTotals() {
 
         // atualiza a quantidade de itens da lista dinamicante no plural e singular
         expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
+
+        // variavel para incrementar o total
+        let total = 0;
+
+        // percorre os item (li) da lista (ul) de despesas
+        for (let item = 0; item < items.length; item++) {
+            const itemAmount = items[item].querySelector(".expense-amount").textContent
+
+            // regex para remover tudo que não for número mantendo a vírgula e substituindo por ponto
+            let value = itemAmount.replace(/[^\d,]/g, "").replace(",",".");
+
+            // converte o valor para float
+            value = parseFloat(value);
+
+            // verifica se o valor é um número válido
+            if (isNaN(value)) {
+                return alert("Não foi possível calcular o total, verifique os valores das despesas.");
+            }
+
+            // incrementa o valor total
+            total += Number(value)
+        }
+
+        // cria a span para adicionar o R$ formatado
+        const symbolBRL = document.createElement("small")
+        symbolBRL.textContent = "R$"
+
+        // formata o total para o padrão BRL e remove o símbolo R$ do valor
+        total = formatCurrencyBRL(total).toUpperCase().replace("R$", "").trim();
+
+        // limpa o conteúdo atual
+        expensesTotal.innerHTML = "";
+
+        // adiciona o símbolo e o total formatado
+        expensesTotal.append(symbolBRL, total);
 
     } catch (error) {
         console.log("Erro ao atualizar totais:", error);
