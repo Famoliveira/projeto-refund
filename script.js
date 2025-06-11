@@ -12,13 +12,13 @@ const expenseList = document.querySelector("ul")
 amount.oninput = () => {
     // regex para remover tudo que não for número
     let value = amount.value.replace(/\D/g, "")
-    
+
     //transforma o valor em centavos
     value = Number(value) / 100
-    
+
     // atualiza o valor formatado para o campo amount
     amount.value = formatCurrencyBRL(value)
-    
+
 }
 
 
@@ -28,13 +28,15 @@ function formatCurrencyBRL(value) {
         style: "currency",
         currency: "BRL",
     })
-    
+
     return value // valor formatado
 }
 
+
+// captura o evento de submit do formulário
 form.onsubmit = (event) => {
     event.preventDefault(); // previne o envio do formulário
-    
+
     // captura os valores da despesa em um objeto
     const newExpense = {
         id: new Date().getTime(),
@@ -44,7 +46,7 @@ form.onsubmit = (event) => {
         amount: amount.value,
         created_at: new Date(),
     }
-    
+
     // chama a função para adicionar o item na lista
     expenseAdd(newExpense);
 }
@@ -60,15 +62,45 @@ function expenseAdd(newExpense) {
         const expenseIcon = document.createElement("img");
         expenseIcon.setAttribute("src", `./img/${newExpense.category_id}.svg`)
         expenseIcon.setAttribute("alt", `Icone da categoria ${newExpense.category_name}`)
-        
+
+        // cria a div expense-info
+        const expenseInfo = document.createElement("div");
+        expenseInfo.classList.add("expense-info");
+
+
+        // cria o nome da despesa (strong)
+        const expenseName = document.createElement("strong");
+        expenseName.textContent = newExpense.expense
+
+        // cria a categoria da despesa (span)
+        const expenseCategory = document.createElement("span")
+        expenseCategory.textContent = newExpense.category_name
+
+        // Cria o elemento span para o valor da despesa.
+        const expenseAmount = document.createElement("span")
+        expenseAmount.classList.add("expense-amount")
+
+        // Formata o valor da despesa para o padrão BRL e define o HTML do elemento.
+        // Remove "R$", espaços em branco e converte para maiúsculas antes de formatar.
+        expenseAmount.innerHTML = `<small>R$</small>${formatCurrencyBRL(newExpense.amount
+            .toUpperCase().replace("R$", "").trim())}` // formata o valor para o padrão BRL
+
+        // adiciona o icone de remover o item da lista
+        const removeIcon = document.createElement("img");
+        removeIcon.classList.add("remove-icon")
+        removeIcon.setAttribute("src", "./img/remove.svg")
+
+        // adiciona as informações dentro da div expense-info
+        expenseInfo.append(expenseName, expenseCategory)
+
         // adiciona os elementos ao item da lista (li)
-        expenseItem.append(expenseIcon)
-        
+        expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon)
+
         // adiciona o item da lista (li) na lista de despesas (ul)
         expenseList.append(expenseItem)
-        
+
     } catch (error) {
         console.log("Erro ao adicionar despesa:", error);
     }
-}
 
+}
